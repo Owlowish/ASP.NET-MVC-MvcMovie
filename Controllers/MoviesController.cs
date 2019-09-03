@@ -148,34 +148,68 @@ public async Task<IActionResult> Index(string movieGenre, string searchString)
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
         {
-            if (id != movie.Id)
-            {
-                return NotFound();
-            }
+            // if (id != movie.Id)
+            // {
+            //     return NotFound();
+            // }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(movie);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MovieExists(movie.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }       
-             return RedirectToAction(nameof(Index));
-            }
+            // if (ModelState.IsValid)
+            // {
+            //     try
+            //     {
+            //         _context.Update(movie);
+            //         await _context.SaveChangesAsync();
+            //     }
+            //     catch (DbUpdateConcurrencyException)
+            //     {
+            //         if (!MovieExists(movie.Id))
+            //         {
+            //             return NotFound();
+            //         }
+            //         else
+            //         {
+            //             throw;
+            //         }
+            //     }       
+            //  return RedirectToAction(nameof(Index));
+            // }
+
+            //################## DEBUG #######################
+
+            // IQueryable<Movie> genreQuery = from m in _context.Movie
+            //                         where m.Title == "Rio Bravo"
+            //                         select m;
+
+            var item = (from m in _context.Movie
+                        where (m.Title == "Rio Bravo")
+                        select m).Single();
+            
+
+           
+
+            var input = "Westernn";
+     
+
+            Console.WriteLine("###################### DEBUG ##############################");
+            Console.WriteLine("");
 
          
+                Console.WriteLine(item.Genre);
 
+                if (item.Genre == input)
+                 Console.WriteLine("Bingo !");
+
+
+            
+            //Console.WriteLine ("Mot de passe Bon !");
+
+
+
+            Console.WriteLine("");
+            Console.WriteLine("###########################################################");
+
+
+            //################################################S
             return View(movie);
         }
 
